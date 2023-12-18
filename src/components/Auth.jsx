@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { registerAPI } from '../../services/allAPI'
+import { registerAPI } from '../services/allAPI'
 
 function Auth({regsiter}) {
     const isRegister = regsiter?true:false
@@ -62,6 +62,7 @@ function Auth({regsiter}) {
    }
    
    const handleRegister = async(e)=>{
+    const {username,names,phno,email,password} = userDetails
      if(!username || !names || !phno || !email || !password){
         alert('please fill the form completly')
      }else{
@@ -69,6 +70,9 @@ function Auth({regsiter}) {
         const result= await registerAPI(userDetails)
         if(result.status===200){
             alert('regsitered successfully')
+            setUserDetails({
+                names:"",email:"",phno:"",username:"",password:""
+            })
         }else{
             console.log(result.data);
         }
